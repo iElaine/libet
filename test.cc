@@ -7,6 +7,7 @@
 #include "handled.h"
 #include "handlemanager.h"
 #include "log.h"
+#include "sharedptr.h"
 using namespace std;
 
 bool LogInitializer::bInitialized = LogInitializer::init();
@@ -71,4 +72,12 @@ TEST(HandleManager, Test)
 	ASSERT_NO_THROW(mgr.getHandled(ph->id()));
 	delete ph;
 	EXPECT_ANY_THROW(mgr.getHandled(ph->id()));
+}
+
+TEST(SharedPtrTest,test)
+{
+	SharedPtr<int> a(new int(0));
+	ASSERT_TRUE(a.unique());
+	SharedPtr<int> b = a;
+	ASSERT_FALSE(a.unique());
 }
